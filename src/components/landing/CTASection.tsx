@@ -20,32 +20,13 @@ export default function CTASection() {
     <section className="relative w-full min-h-screen overflow-hidden bg-white">
       {/* Two Column Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-2 min-h-screen">
-        {/* Left Column - Image */}
-        <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="flex items-center justify-center bg-gray-50 h-screen"
-        >
-          <div className="relative w-full h-full">
-            <Image
-              src="/images/home/Rheii.png"
-              alt="Rheii tote bag"
-              fill
-              className="object-cover"
-              priority
-            />
-          </div>
-        </motion.div>
-
-        {/* Right Column - Text Content */}
+        {/* Right Column - Text Content (order-1 on mobile so it appears above image) */}
         <motion.div
           initial={{ opacity: 0, x: 30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="flex flex-col items-center justify-center px-8 md:px-12 lg:px-16 py-12 md:py-20 gap-8"
+          className="order-1 lg:order-2 flex flex-col items-center justify-center px-8 md:px-12 lg:px-16 py-12 md:py-20 gap-8"
         >
           {/* Heading */}
           <div className="max-w-[500px]">
@@ -85,6 +66,25 @@ export default function CTASection() {
               </div>
             </div>
           </a>
+        </motion.div>
+
+        {/* Left Column - Image (order-2 on mobile so it appears below text) */}
+        <motion.div
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="order-2 lg:order-1 flex items-center justify-center bg-gray-50 h-[340px] lg:h-screen"
+        >
+          <div className="relative w-full h-full">
+            <Image
+              src="/images/home/Rheii.png"
+              alt="Rheii tote bag"
+              fill
+              className="object-cover"
+              priority
+            />
+          </div>
         </motion.div>
       </div>
     </section>

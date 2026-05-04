@@ -72,7 +72,7 @@ export default function HeroSection() {
         ref={contentRef}
         className="relative z-10 min-h-[100dvh] flex items-center"
       >
-        <div className="grid grid-cols-1 lg:grid-cols-2 w-full items-center min-h-[100dvh] gap-0">
+        <div className="grid grid-cols-1 lg:grid-cols-2 w-full items-center gap-0">
           {/* Left Column - Text Content */}
           <div className="px-6 sm:px-8 md:px-10 py-12 sm:py-16 md:py-20 flex items-center justify-center">
             <motion.div
@@ -112,7 +112,7 @@ export default function HeroSection() {
           </div>
 
           {/* Right Column - Image */}
-          <div ref={bgRef} className="relative h-full w-full hidden lg:flex items-start justify-center pr-8 pt-32">
+          <div ref={bgRef} className="relative h-full w-full flex items-center justify-center lg:items-start lg:pr-8 lg:pt-32 pb-12 lg:pb-0">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
