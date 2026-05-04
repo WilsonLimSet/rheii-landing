@@ -27,7 +27,7 @@ export default function CommunitySection() {
       {/* Mobile Decorative Photos — scattered positions, radial mask fades images
           as they touch the centered text; opacity lightens on smaller screens */}
       <div
-        className="md:hidden absolute inset-0 pointer-events-none opacity-50 sm:opacity-75"
+        className="md:hidden absolute inset-0 pointer-events-none opacity-10 sm:opacity-20"
         style={{
           maskImage:
             'radial-gradient(ellipse 55% 58% at 50% 44%, transparent 0%, transparent 28%, black 62%)',
