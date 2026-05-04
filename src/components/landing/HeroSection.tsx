@@ -94,7 +94,9 @@ export default function HeroSection() {
                 Join other early members who are learning to navigate life from the inside out.
               </p>
               <a
-                href="/waitlist"
+                href="https://forms.gle/YakSkToetDBGjTX27"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="overflow-hidden rounded-full min-h-[44px] mt-[24px]"
               >
                 <div className="flex flex-col items-center justify-center min-w-[160px] rounded-full">
