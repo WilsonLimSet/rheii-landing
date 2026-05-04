@@ -74,7 +74,7 @@ export default function HeroSection() {
       >
         <div className="grid grid-cols-1 lg:grid-cols-2 w-full items-center gap-0">
           {/* Left Column - Text Content */}
-          <div className="px-6 sm:px-8 md:px-10 py-12 sm:py-16 md:py-20 flex items-center justify-center">
+          <div className="px-6 sm:px-8 md:px-10 py-12 sm:py-16 md:py-20 pt-20 sm:pt-24 md:pt-28 flex items-center justify-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
