@@ -16,17 +16,28 @@ import LandingFooter from '@/components/landing/LandingFooter';
 
 export default function WaitlistPage() {
   return (
-    <main className="min-h-screen bg-[#fffdfa] flex flex-col">
-      {/* Navigation */}
-      <Navigation />
+    <main className="min-h-screen bg-[#fffdfa] flex flex-col relative">
+      {/* Background Image */}
+      <div
+        className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat pointer-events-none opacity-40"
+        style={{
+          backgroundImage: 'url(/images/landing/waitlist%20bg.png)',
+        }}
+      />
 
-      {/* Main Content */}
-      <div className="flex-1 flex items-start sm:items-center justify-center px-4 sm:px-6 pt-[160px] sm:pt-[120px] pb-[80px]">
-        <WaitlistForm />
+      {/* Content */}
+      <div className="relative z-10">
+        {/* Navigation */}
+        <Navigation />
+
+        {/* Main Content */}
+        <div className="flex-1 flex items-start sm:items-center justify-center px-4 sm:px-6 pt-[160px] sm:pt-[120px] pb-[80px]">
+          <WaitlistForm />
+        </div>
+
+        {/* Footer */}
+        <LandingFooter />
       </div>
-
-      {/* Footer */}
-      <LandingFooter />
     </main>
   );
 }

@@ -2,15 +2,13 @@
  * This Is Rheii Section Component
  *
  * Section introducing the Rheii app featuring:
- * - Decorative background with gradients and stars (composited image)
- * - Heading "This is Rheii." with mixed styling
- * - Body description text
- * - Two overlapping skewed app screenshots
+ * - Title with "Dump your thoughts and let Rheii handle the rest..."
+ * - Three feature cards with images and descriptions
  *
- * Design: Extracted from Figma (node-id: 94-293)
- * Colors: Secondary/50 background (#F2EEEA)
- * Typography: Roboto Serif (H2 Regular/Italic), DM Sans (B1 Regular)
- * Fully responsive with flexbox layout
+ * Design: Updated to show three pillar features
+ * Colors: Light background (#EFEFEE or similar)
+ * Typography: Roboto Serif for heading, DM Sans for body
+ * Fully responsive with grid layout
  */
 
 'use client';
@@ -19,108 +17,111 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 
 export default function ThisIsRheiiSection() {
+  const cards = [
+    {
+      image: '/images/home/Recurring themes.png',
+      title: 'Recurring Themes',
+      description: 'See the themes you keep returning to, and what they\'re telling you.'
+    },
+    {
+      image: '/images/home/Life in Motion.png',
+      title: 'Your Life in Motion',
+      description: 'As you navigate through life, see where things are growing, easing, or demanding your attention.'
+    },
+    {
+      image: '/images/home/Support Cards.png',
+      title: 'Support System',
+      description: 'Receive personalized suggestion and set intentions that resonate. Start building the habits that actually stick.'
+    }
+  ];
+
   return (
     <section
-      className="relative w-full min-h-[560px] md:min-h-screen overflow-hidden"
+      className="relative w-full min-h-screen overflow-hidden"
       style={{
-        backgroundColor: '#F2EEEA', // Fallback color to prevent white gap
+        backgroundColor: '#EFEFEE',
         margin: 0,
         padding: 0,
         display: 'block',
         position: 'relative',
       }}
     >
-      {/* Background Layer - Dynamic and responsive - ensures full coverage */}
-      <div
-        className="absolute inset-0"
-        style={{
-          backgroundImage: 'url(/images/landing/gradient-stars-bg.png)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center center',
-          backgroundRepeat: 'no-repeat',
-          backgroundAttachment: 'local',
-          zIndex: 0,
-        }}
-      />
-
-      {/* Content Container - Responsive Flexbox Layout */}
-      <div className="relative z-10 h-full flex flex-col md:flex-row items-center justify-between gap-10 sm:gap-12 px-5 sm:px-8 md:px-[7vw] py-12 sm:py-16 md:pt-24 md:pb-24 min-h-full">
-        {/* Text Content - Left Side */}
-        <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="flex flex-col gap-6 w-full max-w-[493px] text-center md:text-left"
+      {/* Content Container */}
+      <div className="relative z-10 px-5 sm:px-8 md:px-[7vw] py-12 sm:py-16 md:py-24">
+        {/* Title Section */}
+        <div
+          className="max-w-[600px] mb-16 md:mb-20"
         >
-          {/* Heading */}
-          <h2
-            className="font-heading font-normal text-[28px] sm:text-[34px] md:text-[40px] leading-[38px] sm:leading-[46px] md:leading-[56px] tracking-[-0.8px] text-rheti-neutral-600"
+          <motion.h2
+            className="font-heading font-normal text-[28px] sm:text-[34px] md:text-[42px] leading-[36px] sm:leading-[42px] md:leading-[52px] tracking-[-0.8px] text-black"
             style={{ fontVariationSettings: "'GRAD' 0, 'wdth' 100" }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
           >
-            With{' '}
-            <span
-              className="text-rheti-primary-500"
-              style={{ fontVariationSettings: "'GRAD' 0, 'wdth' 100" }}
-            >
-              Rheii
-            </span>
-            ,
-          </h2>
+            {['Dump your thoughts and let ', 'Rheii', ' handle the rest...'].map((text, idx) => (
+              <span key={idx}>
+                {text.split('').map((char, charIdx) => (
+                  <motion.span
+                    key={charIdx}
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{
+                      duration: 0.03,
+                      delay: (idx === 0 ? charIdx : idx === 1 ? text.length + charIdx + 20 : text.length + charIdx + 24) * 0.03,
+                    }}
+                    className={idx === 1 ? 'text-rheti-primary-500' : ''}
+                  >
+                    {char}
+                  </motion.span>
+                ))}
+              </span>
+            ))}
+          </motion.h2>
+        </div>
 
-          {/* Body Text */}
-          <p
-            className="font-body font-normal text-[17px] sm:text-[19px] md:text-[19px] leading-[25px] sm:leading-[28px] md:leading-[29px] text-rheti-neutral-400"
-            style={{ fontVariationSettings: "'opsz' 14" }}
-          >
-            Turn unstructured thoughts or reflections into meaningful insights over time, so you can
-            make better choices and keep becoming who you want to be.
-          </p>
-        </motion.div>
-
-        {/* App Screenshots - Right Side with Overlapping Layout */}
-        <div className="w-full md:flex-1 flex items-center justify-center md:justify-end">
-          <div className="relative w-full max-w-[1020px] h-[360px] sm:h-[470px] md:h-[620px]">
-            {/* Insights Screenshot - Back */}
+        {/* Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6 lg:gap-8">
+          {cards.map((card, index) => (
             <motion.div
+              key={index}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="absolute left-[6%] sm:left-[10%] top-[50px] sm:top-[70px] md:top-[90px] w-full h-[320px] sm:h-[440px] md:h-[560px]"
+              transition={{ duration: 0.6, delay: index * 0.2 }}
+              className="flex flex-col items-center text-center"
             >
-              <div className="relative w-[94%] aspect-[8660/3845] overflow-hidden rounded-none border-[0.5px] border-black/10 shadow-[0_18px_60px_rgba(0,0,0,0.12)]">
-                <div className="relative w-full h-full">
+              {/* Card Image */}
+              <div className="w-full mb-6 rounded-2xl overflow-hidden max-w-[340px]">
+                <div className="relative w-full aspect-square bg-gray-200">
                   <Image
-                    src="/images/landing/Product%20Preview%202%20final.png"
-                    alt="Insights view"
+                    src={card.image}
+                    alt={card.title}
                     fill
-                    className="object-contain"
+                    className="object-cover"
                   />
                 </div>
               </div>
-            </motion.div>
 
-            {/* Explore Screenshot - Front */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="absolute left-0 top-[130px] sm:top-[150px] md:top-[170px] w-full h-[330px] sm:h-[450px] md:h-[570px]"
-            >
-              <div className="relative w-[95%] aspect-[8774/3931] overflow-hidden rounded-none border-[0.5px] border-black/10 shadow-[0_24px_70px_rgba(0,0,0,0.16)]">
-                <div className="relative w-full h-full">
-                  <Image
-                    src="/images/landing/Product%20Preview%201.png"
-                    alt="Explore view"
-                    fill
-                    className="object-contain"
-                  />
-                </div>
-              </div>
+              {/* Card Title */}
+              <h3
+                className="font-heading font-normal text-[22px] sm:text-[24px] leading-[32px] sm:leading-[36px] text-black mb-4"
+                style={{ fontVariationSettings: "'GRAD' 0, 'wdth' 100" }}
+              >
+                {card.title}
+              </h3>
+
+              {/* Card Description */}
+              <p
+                className="font-body font-normal text-[15px] sm:text-[16px] leading-[24px] sm:leading-[26px] text-gray-600"
+                style={{ fontVariationSettings: "'opsz' 14" }}
+              >
+                {card.description}
+              </p>
             </motion.div>
-          </div>
+          ))}
         </div>
       </div>
     </section>
