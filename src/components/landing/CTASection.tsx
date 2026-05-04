@@ -49,7 +49,9 @@ export default function CTASection() {
 
           {/* Join Button */}
           <a
-            href="/waitlist"
+            href="https://forms.gle/YakSkToetDBGjTX27"
+            target="_blank"
+            rel="noopener noreferrer"
             className="overflow-hidden rounded-none min-h-[50px] mt-4"
           >
             <div className="flex flex-col items-center justify-center min-w-[180px] rounded-none">
