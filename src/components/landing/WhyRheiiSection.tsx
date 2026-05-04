@@ -25,15 +25,15 @@ interface Quote {
 const quotes: Quote[] = [
   {
     text: "It helped me get through some of my looped thinking around things like career and hobbies. The questions the system asks are really intuitive and guide you through thoughts that are honestly helpful to sit with.",
-    source: "Quote Source"
+    source: "Sam, Singapore"
   },
   {
     text: "It felt cathartic to have somewhere to dump big feelings in the moment.",
-    source: "Quote Source"
+    source: "Dave, United Kingdom"
   },
   {
     text: "Overall, I think this is amazing. It really helped prompt me to think more deeply and become more aware of things I hadn't really thought of. The support cards have made my weekends feel more exciting. I've been pushing myself outside my comfort zone.",
-    source: "Quote Source"
+    source: "Jane, Singapore"
   }
 ];
 
