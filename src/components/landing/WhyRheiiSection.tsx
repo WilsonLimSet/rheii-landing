@@ -1,245 +1,174 @@
 /**
- * Why Rheii Section Component
+ * Why Rheii Section Component - Community Testimonials
  *
- * Section explaining why users need Rheii featuring:
- * - Heading "Growth doesn't happen in isolation."
- * - Three interactive feature cards with hover states
- * - Card backgrounds blur on hover to reveal content
- * - Background gradients
+ * Section featuring community quotes with background image
+ * - Heading "Hear it from the Community"
+ * - Three testimonial cards overlaid on background image
  *
- * Design: Extracted from Figma (node-id: 53-26, hover: 148-2105)
- * Colors: White background with colored overlays per card
- * Typography: Roboto Serif (H2 Regular, H3 Medium), DM Sans (B1 Regular, B2 Medium, B3 Semibold)
- * Fully responsive with viewport-based spacing and max-width constraints
+ * Design: Updated to showcase community quotes
+ * Colors: Dark overlay with white text
+ * Typography: Roboto Serif (H2), DM Sans (Body)
+ * Fully responsive
  */
 
 'use client';
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useRef } from 'react';
 
-interface FeatureCardProps {
-  number: string;
-  title: string;
-  badge: string;
-  headline: string;
-  description: string;
-  imageSrc: string;
-  hoverImageSrc: string;
-  overlayColor: string;
-  badgeColor: string;
-  badgeTextColor?: string;
-  textShadow: string;
+interface Quote {
+  text: string;
+  source: string;
 }
 
-function FeatureCard({
-  number,
-  title,
-  badge,
-  headline,
-  description,
-  imageSrc,
-  hoverImageSrc,
-  overlayColor,
-  badgeColor,
-  badgeTextColor = 'white',
-  textShadow,
-}: FeatureCardProps) {
-  const [isHovered, setIsHovered] = useState(false);
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6 }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      className="relative w-full md:flex-1 md:max-w-none h-[360px] sm:h-[400px] md:h-[425px] p-[8px] cursor-pointer bg-white/90"
-      style={{
-        backdropFilter: 'blur(80px)',
-      }}
-    >
-      <div className="relative w-full h-full overflow-hidden">
-        {/* Background image - changes on hover */}
-        <div className="absolute inset-0">
-          <Image
-            src={isHovered ? hoverImageSrc : imageSrc}
-            alt=""
-            fill
-            className="object-cover transition-opacity duration-500"
-            style={{
-              filter: `${isHovered ? 'blur(0px)' : 'blur(8px)'} brightness(60%)`,
-            }}
-          />
-        </div>
-
-        {/* Colored overlay - fades out on hover */}
-        <motion.div
-          animate={{ opacity: isHovered ? 0.3 : 1 }}
-          transition={{ duration: 0.5 }}
-          className="absolute inset-0"
-          style={{ backgroundColor: overlayColor }}
-        />
-
-        {/* Top blur overlay - appears on hover */}
-        <motion.div
-          animate={{ opacity: isHovered ? 1 : 0 }}
-          transition={{ duration: 0.3 }}
-          className="absolute top-0 left-0 right-0 h-[60%] pointer-events-none"
-          style={{
-            backdropFilter: 'blur(8px)',
-            WebkitBackdropFilter: 'blur(8px)',
-            maskImage: 'linear-gradient(to bottom, black 0%, transparent 100%)',
-            WebkitMaskImage: 'linear-gradient(to bottom, black 0%, transparent 100%)',
-          }}
-        />
-
-        {/* Default State - Number and Title */}
-        <motion.div
-          animate={{ opacity: isHovered ? 0 : 1 }}
-          transition={{ duration: 0.3 }}
-          className="absolute inset-0 flex items-center justify-center"
-        >
-          <h3
-            className="font-heading font-normal text-[24px] sm:text-[28px] md:text-[30px] leading-[32px] sm:leading-[38px] md:leading-[40px] tracking-[-0.9px] text-center text-white whitespace-nowrap"
-            style={{
-              fontVariationSettings: "'GRAD' 0, 'wdth' 100",
-              textShadow,
-            }}
-          >
-            {title}
-          </h3>
-        </motion.div>
-
-        {/* Hover State - Badge and Description Text */}
-        <motion.div
-          animate={{ opacity: isHovered ? 1 : 0 }}
-          transition={{ duration: 0.3 }}
-          className="absolute inset-0 p-6 sm:p-8 flex flex-col gap-3 items-start pointer-events-none"
-        >
-          {/* Badge */}
-          <div
-            className="inline-flex self-start px-3 py-1 rounded-full"
-            style={{ backgroundColor: badgeColor }}
-          >
-            <span
-              className="font-heading font-normal text-[13px] sm:text-[14px] leading-[20px] sm:leading-[21px]"
-              style={{
-                fontVariationSettings: "'opsz' 14",
-                color: badgeTextColor,
-              }}
-            >
-              {badge}
-            </span>
-          </div>
-
-          {/* Description - First Paragraph */}
-          <p
-            className="font-heading font-normal text-[20px] sm:text-[22px] md:text-[16px] leading-[28px] sm:leading-[30px] md:leading-[24px] text-white"
-            style={{ fontVariationSettings: "'opsz' 14" }}
-          >
-            {headline}
-          </p>
-
-          {/* Description - Second Paragraph */}
-          <p
-            className="font-heading font-normal text-[20px] sm:text-[22px] md:text-[16px] leading-[28px] sm:leading-[30px] md:leading-[24px] text-white"
-            style={{ fontVariationSettings: "'opsz' 14" }}
-          >
-            {description}
-          </p>
-        </motion.div>
-      </div>
-    </motion.div>
-  );
-}
+const quotes: Quote[] = [
+  {
+    text: "It helped me get through some of my looped thinking around things like career and hobbies. The questions the system asks are really intuitive and guide you through thoughts that are honestly helpful to sit with.",
+    source: "Quote Source"
+  },
+  {
+    text: "It felt cathartic to have somewhere to dump big feelings in the moment.",
+    source: "Quote Source"
+  },
+  {
+    text: "Overall, I think this is amazing. It really helped prompt me to think more deeply and become more aware of things I hadn't really thought of. The support cards have made my weekends feel more exciting. I've been pushing myself outside my comfort zone.",
+    source: "Quote Source"
+  }
+];
 
 export default function WhyRheiiSection() {
+  const containerRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const createSparkle = (x: number, y: number, size: number, delay: number) => {
+      const sparkleEl = document.createElement('div');
+      sparkleEl.style.position = 'absolute';
+      sparkleEl.style.left = `${x}px`;
+      sparkleEl.style.top = `${y}px`;
+      sparkleEl.style.pointerEvents = 'none';
+      sparkleEl.style.width = `${size}px`;
+      sparkleEl.style.height = `${size}px`;
+      sparkleEl.style.transform = 'translate(-50%, -50%)';
+      sparkleEl.style.background = 'radial-gradient(circle, rgba(64, 14, 26, 1) 0%, rgba(92, 20, 33, 0.95) 30%, rgba(92, 20, 33, 0.65) 55%, transparent 100%)';
+      sparkleEl.style.borderRadius = '50%';
+      sparkleEl.style.boxShadow = '0 0 18px rgba(92, 20, 33, 0.95), 0 0 40px rgba(64, 14, 26, 0.9)';
+      sparkleEl.style.opacity = '0';
+      sparkleEl.style.zIndex = '30';
+      sparkleEl.style.mixBlendMode = 'screen';
+
+      container.appendChild(sparkleEl);
+
+      const startTime = Date.now();
+      const duration = 600;
+      const driftX = Math.random() * 24 - 12;
+      const driftY = Math.random() * 28 + 10;
+      const rotation = Math.random() * 180 - 90;
+
+      const animate = () => {
+        const elapsed = Date.now() - startTime - delay;
+        if (elapsed < 0) {
+          requestAnimationFrame(animate);
+          return;
+        }
+
+        const progress = Math.min(elapsed / duration, 1);
+        sparkleEl.style.opacity = `${Math.max(1 - progress * 1.4, 0)}`;
+        sparkleEl.style.transform = `translate(calc(-50% + ${driftX * progress}px), calc(-50% + ${driftY * progress}px)) rotate(${rotation * progress}deg) scale(${1 - progress * 0.45})`;
+
+        if (progress < 1) {
+          requestAnimationFrame(animate);
+        } else {
+          sparkleEl.remove();
+        }
+      };
+
+      setTimeout(() => animate(), delay);
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = container.getBoundingClientRect();
+      const baseX = e.clientX - rect.left;
+      const baseY = e.clientY - rect.top;
+
+      for (let i = 0; i < 6; i += 1) {
+        const offsetX = Math.random() * 16 - 8;
+        const offsetY = Math.random() * 16 - 8;
+        const size = Math.random() < 0.7 ? 6 : 10;
+        const delay = Math.random() * 120;
+        createSparkle(baseX + offsetX, baseY + offsetY, size, delay);
+      }
+    };
+
+    container.addEventListener('mousemove', handleMouseMove);
+    return () => container.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
   return (
     <section
+      ref={containerRef}
       className="relative w-full min-h-screen overflow-hidden"
-      style={{ backgroundColor: '#F0E6E0' }}
+      style={{
+        backgroundColor: '#f5f5f5',
+      }}
     >
-      {/* Background Gradients */}
-      <div className="absolute inset-0 w-full h-full">
+      {/* Background Image */}
+      <div className="absolute inset-0 z-0">
         <Image
-          src="/images/landing/why-rheii-bg.jpg"
-          alt=""
+          src="/images/home/Community BG.png"
+          alt="Community background"
           fill
           className="object-cover"
-          sizes="100vw"
+          priority
         />
       </div>
 
-      {/* Content Container - Responsive Flexbox Layout */}
-      <div className="relative z-10 w-full flex flex-col items-center md:items-start gap-10 sm:gap-12 md:gap-[12vh] px-5 sm:px-8 md:px-[7vw] py-16 sm:py-20 md:py-[17vh]">
-        {/* Text Content - Left Aligned */}
+      {/* Content Container */}
+      <div className="relative z-10 px-5 sm:px-8 md:px-[7vw] py-12 sm:py-16 md:py-24">
+        {/* Heading */}
         <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="flex flex-col gap-6 items-center md:items-start w-full max-w-[670px]"
+          className="mb-16 md:mb-24 text-center"
         >
-          {/* Heading */}
           <h2
-            className="font-heading font-light text-[28px] sm:text-[34px] md:text-[40px] leading-[38px] sm:leading-[46px] md:leading-[56px] tracking-[-0.8px] text-rheti-neutral-600 text-center md:text-left"
+            className="font-heading font-light text-[32px] sm:text-[40px] md:text-[48px] leading-[42px] sm:leading-[52px] md:leading-[60px] tracking-[-0.8px] text-black"
             style={{ fontVariationSettings: "'GRAD' 0, 'wdth' 100" }}
           >
-            And growth doesn&apos;t happen in isolation.
+            Hear it from the Community
           </h2>
-
-          {/* Body Text */}
         </motion.div>
 
-        {/* Feature Cards Row - Triptych Layout */}
-        <div className="w-full flex flex-col md:flex-row md:items-stretch justify-between gap-6">
-          {/* Card 1 - Personalized */}
-          <FeatureCard
-            number="1"
-            title="Personalized"
-            badge="Personalized"
-            headline="Your experience adapts to the way you think."
-            description="Rheii learns from your patterns and reflections, offering tailored prompts and insights that evolve with you."
-            imageSrc="/images/landing/personalization card img.png"
-            hoverImageSrc="/images/landing/personalization card img.png"
-            overlayColor="rgba(134, 133, 133, 0.5)"
-            badgeColor="#ece5dd"
-            badgeTextColor="black"
-            textShadow="0px 5px 63px rgba(75, 52, 41, 0.95)"
-          />
+        {/* Quotes Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6">
+          {quotes.map((quote, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: index * 0.2 }}
+              className="flex flex-col justify-start p-8 bg-white/70 backdrop-blur-lg rounded-lg border border-white/60"
+            >
+              {/* Quote Text */}
+              <p
+                className="font-body font-normal text-[15px] sm:text-[16px] leading-[26px] sm:leading-[28px] text-black italic mb-6"
+                style={{ fontVariationSettings: "'opsz' 14" }}
+              >
+                "{quote.text}"
+              </p>
 
-          {/* Card 2 - Social */}
-          <FeatureCard
-            number="2"
-            title="Social"
-            badge="Social"
-            headline="See how your circle evolves with you."
-            description="Build your trusted circles and track how they grow with you."
-            imageSrc="/images/landing/social.jpg"
-            hoverImageSrc="/images/landing/social.jpg"
-            overlayColor="rgba(134, 133, 133, 0.5)"
-            badgeColor="#ebf1f3"
-            badgeTextColor="black"
-            textShadow="0px 5px 64px #283f37"
-          />
-
-          {/* Card 3 - Community */}
-          <FeatureCard
-            number="3"
-            title="Community"
-            badge="Community"
-            headline="Find your people, at every stage."
-            description="Discover communities aligned with where you are and where you're headed. Connect with others navigating similar paths."
-            imageSrc="/images/landing/community card.jpg"
-            hoverImageSrc="/images/landing/community card.jpg"
-            overlayColor="rgba(134, 133, 133, 0.5)"
-            badgeColor="#F3EBED"
-            badgeTextColor="black"
-            textShadow="0px 5px 64px rgba(61, 88, 112, 0.45)"
-          />
+              {/* Quote Source */}
+              <p className="font-body font-normal text-[14px] leading-[20px] text-black/80">
+                — {quote.source}
+              </p>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>

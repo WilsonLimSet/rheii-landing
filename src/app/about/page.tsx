@@ -12,7 +12,6 @@
  */
 
 import Navigation from '@/components/landing/Navigation';
-import OurMissionSection from '@/components/about/OurMissionSection';
 import FounderSection from '@/components/about/FounderSection';
 import LandingFooter from '@/components/landing/LandingFooter';
 
@@ -21,9 +20,6 @@ export default function AboutPage() {
     <main className="min-h-screen bg-white">
       {/* Navigation */}
       <Navigation />
-
-      {/* Our Mission Section */}
-      <OurMissionSection />
 
       {/* Founder Section */}
       <FounderSection />

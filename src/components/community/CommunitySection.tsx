@@ -16,6 +16,7 @@
 
 import Image from 'next/image';
 
+
 export default function CommunitySection() {
   return (
     <div className="relative w-full min-h-[130vh] bg-[#fffdfa] overflow-hidden">

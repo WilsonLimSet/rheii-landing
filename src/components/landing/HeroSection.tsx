@@ -66,106 +66,68 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative w-full min-h-[100dvh] overflow-hidden">
-      {/* Background Image */}
-      <div ref={bgRef} className="absolute inset-0">
-        <Image
-          src="/images/landing/landing page bg.jpg"
-          alt=""
-          fill
-          className="object-cover object-left"
-          priority
-          onLoad={() => {
-            // #region agent log
-            fetch('http://127.0.0.1:7243/ingest/8bed6cbb-debd-473a-a110-c7a68df1bf1b', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                location: 'HeroSection.tsx:Image.onLoad',
-                message: 'Background image loaded',
-                data: { imageSrc: '/images/landing/landing page bg.jpg' },
-                timestamp: Date.now(),
-                sessionId: 'debug-session',
-                runId: 'run1',
-                hypothesisId: 'C',
-              }),
-            }).catch(() => {});
-            // #endregion
-          }}
-          onError={(e) => {
-            // #region agent log
-            fetch('http://127.0.0.1:7243/ingest/8bed6cbb-debd-473a-a110-c7a68df1bf1b', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                location: 'HeroSection.tsx:Image.onError',
-                message: 'Background image failed to load',
-                data: { error: e.toString() },
-                timestamp: Date.now(),
-                sessionId: 'debug-session',
-                runId: 'run1',
-                hypothesisId: 'C',
-              }),
-            }).catch(() => {});
-            // #endregion
-          }}
-        />
-
-        {/* Color Tint Overlay */}
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundColor: 'rgba(138, 121, 106, 0.3)',
-          }}
-        />
-
-        {/* Left Edge Blur - 15% width with gradient to transparent */}
-        <div
-          className="absolute inset-y-0 left-0 w-[10%] md:w-[15%] backdrop-blur-2xl pointer-events-none"
-          style={{
-            maskImage: 'linear-gradient(to right, black, transparent)',
-            WebkitMaskImage: 'linear-gradient(to right, black, transparent)',
-          }}
-        />
-
-        {/* Right Edge Blur - 15% width with gradient to transparent */}
-        <div
-          className="absolute inset-y-0 right-0 w-[10%] md:w-[15%] backdrop-blur-2xl pointer-events-none"
-          style={{
-            maskImage: 'linear-gradient(to left, black, transparent)',
-            WebkitMaskImage: 'linear-gradient(to left, black, transparent)',
-          }}
-        />
-      </div>
-
+    <section ref={sectionRef} className="relative w-full min-h-[100dvh] overflow-hidden" style={{ backgroundColor: '#f7f6f4' }}>
       {/* Hero Content */}
       <div
         ref={contentRef}
-        className="relative z-10 min-h-[100dvh] pt-[120px] sm:pt-[104px] md:pt-[80px] px-4"
+        className="relative z-10 min-h-[100dvh] flex items-center"
       >
-        <div
-          ref={innerRef}
-          className="min-h-[calc(100dvh-120px)] sm:min-h-[calc(100dvh-104px)] md:min-h-[calc(100dvh-80px)] flex items-start justify-center pt-[24vh] sm:pt-[28vh] md:pt-[34vh]"
-        >
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, ease: 'easeOut' }}
-            className="flex flex-col gap-[8px] items-center text-white"
-            style={{ textShadow: '0px 1px 11px rgba(53, 38, 19, 0.24)' }}
-          >
-            <h1
-              className="font-heading font-extralight text-[36px] sm:text-[41px] md:text-[45px] leading-[54px] sm:leading-[63px] md:leading-[68px] text-center max-w-[300px] sm:max-w-none"
-              style={{
-                transform: 'scaleX(0.985)',
-                fontVariationSettings: "'opsz' 14",
-              }}
+        <div className="grid grid-cols-1 lg:grid-cols-2 w-full items-center min-h-[100dvh] gap-0">
+          {/* Left Column - Text Content */}
+          <div className="px-6 sm:px-8 md:px-10 py-12 sm:py-16 md:py-20 flex items-center justify-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45, ease: 'easeOut' }}
+              className="flex flex-col gap-[8px] items-center text-black max-w-[500px]"
             >
-              Your Growth,
-              <br />
-              made visible.
-            </h1>
-          </motion.div>
+              <h1
+                className="font-heading font-extralight text-[36px] sm:text-[41px] md:text-[45px] leading-[54px] sm:leading-[63px] md:leading-[68px] text-center"
+                style={{
+                  transform: 'scaleX(0.985)',
+                  fontVariationSettings: "'opsz' 14",
+                }}
+              >
+                Your growth made visible.
+              </h1>
+              <p className="text-[16px] sm:text-[18px] leading-[24px] sm:leading-[28px] text-center max-w-[400px] mt-[16px] font-light opacity-90">
+                Join other early members who are learning to navigate life from the inside out.
+              </p>
+              <a
+                href="/waitlist"
+                className="overflow-hidden rounded-full min-h-[44px] mt-[24px]"
+              >
+                <div className="flex flex-col items-center justify-center min-w-[160px] rounded-full">
+                  <div className="bg-black border border-black flex items-center justify-center px-[20px] py-[10px] rounded-full min-h-[44px]">
+                    <span
+                      className="font-body font-semibold text-[14px] leading-[20px] text-white"
+                      style={{ fontVariationSettings: "'opsz' 14" }}
+                    >
+                      Join The Waitlist
+                    </span>
+                  </div>
+                </div>
+              </a>
+            </motion.div>
+          </div>
+
+          {/* Right Column - Image */}
+          <div ref={bgRef} className="relative h-full w-full hidden lg:flex items-start justify-center pr-8 pt-32">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, ease: 'easeOut' }}
+            >
+              <Image
+                src="/images/home/hero page image.png"
+                alt="Rheii app interface"
+                width={600}
+                height={1100}
+                className="object-contain h-auto"
+                priority
+              />
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>
